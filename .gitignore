@@ -2,8 +2,3 @@
 .venv/
 __pycache__/
 *.pyc
-
-git init
-git add .
-git commit -m "项目骨架: main.py 打印版本信息"
-git log --oneline
