@@ -1,10 +1,6 @@
 import time
 from game.states import State, next_state
-
-TARGET_FPS = 30
-FRAME_TIME = 1.0 / TARGET_FPS
-DT_MAX = 0.1
-TOTAL_FRAMES = 300      #The system can run for a maximum of 300 frames.
+from game.config import TARGET_FPS, FRAME_TIME, DT_MAX, TOTAL_FRAMES
 
 script = {30: "ENTER", 90: "P", 150: "P", 240: "Q"}     #Simulate keyboard input at a specific point in time
 

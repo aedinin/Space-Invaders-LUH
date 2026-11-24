@@ -1,6 +1,5 @@
-class my_class(object):
-    pass
-
-
-
-
+# Global constants
+TARGET_FPS = 30
+FRAME_TIME = 1.0 / TARGET_FPS
+DT_MAX = 0.1
+TOTAL_FRAMES = 300
