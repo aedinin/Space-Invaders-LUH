@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Space Invaders ¨C GIP Spieleprojekt (WiSe 26/27)
 
 Terminalbasiertes Space-Invaders-Spiel in Python 3, ohne GUI-Framework
@@ -12,3 +13,8 @@ python main.py
 
 ## Team
 - <Long Teng>
+=======
+# Space-Invaders-LUH
+
+A Game to pass ProG.
+>>>>>>> origin/main
