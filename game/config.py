@@ -2,4 +2,8 @@
 TARGET_FPS = 30
 FRAME_TIME = 1.0 / TARGET_FPS
 DT_MAX = 0.1
-HOLD_GUARD = 0.15 
+HOLD_GUARD = 0.15
+
+# Playfield (characters)
+WIDTH = 40
+HEIGHT = 18
