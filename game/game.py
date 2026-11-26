@@ -5,7 +5,7 @@ import time
 
 from game.config import (ACTION_KEYS, DT_MAX, FRAME_TIME, HEIGHT, HOLD_GUARD,
                          SHIP_SPEED, WIDTH)
-from game.input import read_key
+from game.input import read_key, start, stop
 from game.render import (CURSOR_HOME, HIDE_CURSOR, SHOW_CURSOR, draw_border,
                          draw_overlay, draw_ship, grid_to_text, new_grid,
                          put_text)
@@ -26,11 +26,13 @@ class Game:
 
     def run(self):
         """Hide the cursor, play until QUIT, always restore the cursor."""
+        start()
         sys.stdout.write(HIDE_CURSOR)
         try:
             self.loop()
         finally:
             sys.stdout.write(SHOW_CURSOR)
+            stop()
         print(f"\nloop ended, game_time {self.game_time:.2f}")
 
     def loop(self):

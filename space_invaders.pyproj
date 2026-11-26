@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="game\config.py" />
+    <Compile Include="game\game.py" />
     <Compile Include="game\input.py" />
     <Compile Include="game\render.py" />
     <Compile Include="game\states.py" />
