@@ -14,4 +14,4 @@ STARTING_LIVES = 3
 ACTION_KEYS = ("ENTER", "P", "Q", "R", "SPACE")
 
 # Input: how long a key still counts as held after it was last seen
-KEY_HOLD_TIMEOUT = 0.10
+KEY_HOLD_TIMEOUT = 0.25
