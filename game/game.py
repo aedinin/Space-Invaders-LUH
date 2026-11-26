@@ -5,7 +5,7 @@ import time
 
 from game.config import (ACTION_KEYS, DT_MAX, FRAME_TIME, HEIGHT, HOLD_GUARD,
                          SHIP_SPEED, STARTING_LIVES, WIDTH)
-from game.input import read_key, start, stop
+from game.input import read_key, start, stop, held
 from game.render import (CURSOR_HOME, HIDE_CURSOR, SHOW_CURSOR, draw_border,
                          draw_overlay, draw_ship, grid_to_text, new_grid,
                          put_text)
@@ -54,7 +54,7 @@ class Game:
 
         key = self.read_input()
         self.handle_key(key)
-        self.update(dt, key)
+        self.update(dt)
         self.render()
 
         sleep_time = FRAME_TIME - (time.perf_counter() - frame_start)
@@ -86,7 +86,7 @@ class Game:
         if new_state is not self.state:
             self.state = new_state
 
-    def update(self, dt, key):
+    def update(self, dt):
         """Advance the world; skipped entirely unless the game is running."""
         if self.state is not State.RUNNING:
             return
@@ -97,9 +97,9 @@ class Game:
 
         self.game_time = self.game_time + dt
 
-        if key == "LEFT":
+        if held("LEFT"):
             self.ship_x = self.ship_x - SHIP_SPEED * dt
-        if key == "RIGHT":
+        if held("RIGHT"):
             self.ship_x = self.ship_x + SHIP_SPEED * dt
 
         if self.ship_x < 2:

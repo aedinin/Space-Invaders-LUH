@@ -7,6 +7,9 @@
 
 import os
 import sys
+import time
+
+from game.config import KEY_HOLD_TIMEOUT
 
 KEY_MAP = {
     "\r": "ENTER",
@@ -14,6 +17,7 @@ KEY_MAP = {
     " ": "SPACE",
 }
 
+_last_seen = {}      # action name -> perf_counter() timestamp
 
 # --------------------------------------------------------------- Windows
 try:
@@ -87,8 +91,15 @@ def read_key():
         token = _read_token()
         if token is None:
             return last
+        _last_seen[token] = time.perf_counter()
         last = token
 
+def held(key):
+    """True while `key` still counts as held down."""
+    stamp = _last_seen.get(key)
+    if stamp is None:
+        return False
+    return (time.perf_counter() - stamp) < KEY_HOLD_TIMEOUT
 
 if __name__ == "__main__":
     import time
