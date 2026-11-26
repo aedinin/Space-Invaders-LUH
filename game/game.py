@@ -4,7 +4,7 @@ import sys
 import time
 
 from game.config import (ACTION_KEYS, DT_MAX, FRAME_TIME, HEIGHT, HOLD_GUARD,
-                         SHIP_SPEED, WIDTH)
+                         SHIP_SPEED, STARTING_LIVES, WIDTH)
 from game.input import read_key, start, stop
 from game.render import (CURSOR_HOME, HIDE_CURSOR, SHOW_CURSOR, draw_border,
                          draw_overlay, draw_ship, grid_to_text, new_grid,
@@ -17,12 +17,16 @@ class Game:
 
     def __init__(self):
         self.state = State.MENU
-        self.game_time = 0.0
         self.frame = 0
         self.last_time = time.perf_counter()
         self.last_key = None
         self.last_key_time = 0.0
+        self.reset_round()
+
+    def reset_round(self):
+        self.game_time = 0.0
         self.ship_x = WIDTH / 2
+        self.lives = STARTING_LIVES
 
     def run(self):
         """Hide the cursor, play until QUIT, always restore the cursor."""
@@ -77,12 +81,18 @@ class Game:
 
     def handle_key(self, key):
         new_state = next_state(self.state, key)
+        if self.state is State.MENU and new_state is State.RUNNING:
+            self.reset_round()
         if new_state is not self.state:
             self.state = new_state
 
     def update(self, dt, key):
         """Advance the world; skipped entirely unless the game is running."""
         if self.state is not State.RUNNING:
+            return
+
+        if self.lives <= 0:
+            self.state = State.GAME_OVER
             return
 
         self.game_time = self.game_time + dt
