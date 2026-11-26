@@ -41,9 +41,21 @@ def grid_to_text(grid):
         lines.append("".join(row))
     return "\n".join(lines)
 
+def draw_ship(grid, x):
+    """Draw the player ship at column x, one row above the bottom border."""
+    if 1 <= x < WIDTH - 1:
+        grid[HEIGHT - 2][x] = "^"
+
+def draw_overlay(grid, text):
+    """Centre a line of text in the middle of the playfield."""
+    x = (WIDTH - len(text)) // 2
+    y = HEIGHT // 2
+    put_text(grid, x, y, text)
+
 if __name__ == "__main__":
     g = new_grid()
     draw_border(g)
     put_text(g, 2, 2, "SPACE INVADERS")
-    put_text(g, 2, 4, "state: menu")
+    put_text(g, 2, 4, "state: running")
+    draw_ship(g, WIDTH // 2)
     print(grid_to_text(g))

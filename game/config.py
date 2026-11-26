@@ -5,5 +5,9 @@ DT_MAX = 0.1
 HOLD_GUARD = 0.15
 
 # Playfield (characters)
-WIDTH = 40
+WIDTH = 41
 HEIGHT = 18
+
+# Player ship
+SHIP_SPEED = 20.0        
+ACTION_KEYS = ("ENTER", "P", "Q", "R", "SPACE")

@@ -1,9 +1,13 @@
 import os
 import sys
 import time
-from game.config import TARGET_FPS, FRAME_TIME, DT_MAX, HOLD_GUARD
+
+from game.config import (ACTION_KEYS, DT_MAX, FRAME_TIME, HEIGHT, HOLD_GUARD,
+                         SHIP_SPEED, TARGET_FPS, WIDTH)
 from game.input import read_key
-from game.render import (CURSOR_HOME, HIDE_CURSOR, SHOW_CURSOR, draw_border, grid_to_text, new_grid, put_text)
+from game.render import (CURSOR_HOME, HIDE_CURSOR, SHOW_CURSOR, draw_border,
+                         draw_overlay, draw_ship, grid_to_text, new_grid,
+                         put_text)
 from game.states import State, next_state
 
 os.system("")
@@ -14,6 +18,8 @@ frame = 0
 last_time = time.perf_counter()
 last_key = None
 last_key_time = 0.0
+
+ship_x = WIDTH / 2 
 
 sys.stdout.write(HIDE_CURSOR)
 try:
@@ -32,7 +38,7 @@ try:
             gap = frame_start - last_key_time
             last_key = key
             last_key_time = frame_start
-            if same and gap < HOLD_GUARD:
+            if same and gap < HOLD_GUARD and key in ACTION_KEYS:
                 key = None
     
         new_state = next_state(state,key)
@@ -42,18 +48,33 @@ try:
 
         if state is State.RUNNING:
             game_time = game_time + dt
+            if key == "LEFT":
+                ship_x = ship_x - SHIP_SPEED * dt
+            if key == "RIGHT":
+                ship_x = ship_x + SHIP_SPEED * dt
+            if ship_x < 2:
+                ship_x = 2
+            if ship_x > WIDTH - 3:
+                ship_x = WIDTH -3
 
         grid = new_grid()
         draw_border(grid)
         put_text(grid, 2, 2, "SPACE INVADERS")
         put_text(grid, 2, 4, f"state: {state.value}")
-        put_text(grid, 2, 6, f"frame: {frame}")
-        put_text(grid, 2, 8, f"game_time: {game_time:.2f}")
+        put_text(grid, 2, HEIGHT - 3, f"frame: {frame} game_time:{game_time:.1f}")
         put_text(grid, 2, 10, f"last: {new_state.value}")
+        draw_ship(grid, int(ship_x))
+
+        if state is State.MENU:
+            draw_overlay(grid, "PRESS ENTER TO START")
+        elif state is State.PAUSED:
+            draw_overlay(grid, "PAUSED - PRESS P TO RESUME")
+        elif state is State.GAME_OVER:
+            draw_overlay(grid, "GAME OVER - PRESS R")
 
         sys.stdout.write(CURSOR_HOME + grid_to_text(grid))
         sys.stdout.flush()
-
+               
         sleep_time = FRAME_TIME - (time.perf_counter() - frame_start)
         if sleep_time > 0:
             time.sleep(sleep_time)
