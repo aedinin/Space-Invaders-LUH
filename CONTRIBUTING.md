@@ -1,9 +1,9 @@
 # Contributing
 
-Space Invaders ！ GIP Spieleprojekt (WiSe 26/27).
+Space Invaders - GIP Spieleprojekt (WiSe 26/27).
 Terminal game in Python 3, standard library only.
 
-New to branches or Pull Requests? Don't worry ！ just follow the flow below.
+New to branches or Pull Requests? Don't worry - just follow the flow below.
 If anything looks weird or you get stuck, ask in the group chat **before**
 running any `--force` command.
 
@@ -15,7 +15,7 @@ running any `--force` command.
 
       python main.py
 
-- **Controls:** `ENTER` start ， `○` `★` move ， `P` pause/resume ， `Q` quit.
+- **Controls:** `ENTER` start, `LEFT`/`RIGHT` move, `P` pause/resume, `Q` quit
 - **If the terminal looks broken** (cursor hidden, no echo after a crash):
   the game restores it automatically on a normal exit. If it ever does not,
   type `reset` on Linux/macOS, or open a new terminal tab on Windows.
@@ -27,7 +27,7 @@ running any `--force` command.
        git switch main
        git pull
 
-2. **Create a branch for your task** ！ never work directly on `main`
+2. **Create a branch for your task** - never work directly on `main`
    (older git: `git checkout -b feature/short-name`):
 
        git switch -c feature/short-name
@@ -54,7 +54,7 @@ running any `--force` command.
 ## Merging a PR
 
 Anyone except the author should verify the branch and merge it. If nobody is
-available, merge it yourself and say so in the chat ！ do not leave a PR open
+available, merge it yourself and say so in the chat - do not leave a PR open
 for days.
 
 To test someone else's branch locally:
@@ -99,8 +99,8 @@ Format: `module: what changed`
 **Modules:** `input`, `render`, `game`, `config`, `states`, `docs`, plus any new
 ones (`entities`, `waves`, `combat`, ...).
 
-- Good: `input: treat movement keys as held state` ， `render: draw the alien grid`
-  ， `config: add KEY_HOLD_TIMEOUT`
+- Good: `input: treat movement keys as held state` , `render: draw the alien grid`
+  , `config: add KEY_HOLD_TIMEOUT`
 - Avoid: `update`, `fix`, `wip`
 
 When the reason is not obvious, add a body:
